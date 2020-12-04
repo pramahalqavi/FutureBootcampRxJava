@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.Main2Activity">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <TextView
+            android:id="@+id/textExtra"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:context=".activity.MainActivity"
+                android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/textCounter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="10dp"
+                            android:text="0"
+                            android:textSize="30sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/btnCounter"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginHorizontal="10dp"
+                                    android:background="@color/colorPrimary"
+                                    android:text="Increment"
+                                    android:textColor="#FFFFFF" />
+
+                                <Button
+                                    android:id="@+id/btnResetCounter"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginHorizontal="10dp"
+                                    android:background="@color/colorPrimary"
+                                    android:text="Reset"
+                                    android:textColor="#FFFFFF" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/emailSub"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginHorizontal="40dp"
+                            android:layout_marginTop="20dp"
+                            android:hint="Subject" />
+
+                        <EditText
+                            android:id="@+id/emailContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginHorizontal="40dp"
+                            android:layout_marginTop="20dp"
+                            android:hint="Content" />
+
+                        <Button
+                            android:id="@+id/btnEmail"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/colorPrimary"
+                            android:text="Send Email"
+                            android:textColor="#FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/randomVal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="0"
+                            android:textSize="30sp" />
+
+
+                </LinearLayout>
+        </ScrollView>
+</LinearLayout>
