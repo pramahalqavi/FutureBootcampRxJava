@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import blibli.mobile.materialcalendarview.format.DayFormatter;
 import blibli.mobile.materialcalendarview.format.TitleFormatter;
@@ -24,7 +25,7 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
   protected final MaterialCalendarView mcv;
   private final CalendarDay today;
 
-  private TitleFormatter titleFormatter = null;
+  @NonNull private TitleFormatter titleFormatter = TitleFormatter.DEFAULT;
   private Integer color = null;
   private Integer dateTextAppearance = null;
   private Integer weekDayTextAppearance = null;
@@ -76,7 +77,7 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
 
   @Override
   public CharSequence getPageTitle(int position) {
-    return titleFormatter == null ? "" : titleFormatter.format(getItem(position));
+    return titleFormatter.format(getItem(position));
   }
 
   public CalendarPagerAdapter<?> migrateStateAndReturn(CalendarPagerAdapter<?> newAdapter) {
@@ -195,8 +196,8 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
     return view == object;
   }
 
-  public void setTitleFormatter(@NonNull TitleFormatter titleFormatter) {
-    this.titleFormatter = titleFormatter;
+  public void setTitleFormatter(@Nullable TitleFormatter titleFormatter) {
+    this.titleFormatter = titleFormatter == null ? TitleFormatter.DEFAULT : titleFormatter;
   }
 
   public void setSelectionColor(int color) {
@@ -231,8 +232,8 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
   }
 
   public void setDayFormatter(DayFormatter formatter) {
-    dayFormatterContentDescription =
-        dayFormatterContentDescription == dayFormatter ? formatter : dayFormatterContentDescription;
+    dayFormatterContentDescription = dayFormatterContentDescription == dayFormatter ?
+            formatter : dayFormatterContentDescription;
     this.dayFormatter = formatter;
     for (V pagerView : currentViews) {
       pagerView.setDayFormatter(formatter);
@@ -317,8 +318,7 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
     for (int i = 0; i < selectedDates.size(); i++) {
       CalendarDay date = selectedDates.get(i);
 
-      if ((minDate != null && minDate.isAfter(date))
-          || (maxDate != null && maxDate.isBefore(date))) {
+      if ((minDate != null && minDate.isAfter(date)) || (maxDate != null && maxDate.isBefore(date))) {
         selectedDates.remove(i);
         mcv.onDateUnselected(date);
         i -= 1;
