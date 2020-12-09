@@ -48,7 +48,6 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
           DayOfWeek firstDayOfWeek,
           boolean showWeekDays) {
     super(view.getContext());
-
     this.mcv = view;
     this.firstViewDay = firstViewDay;
     this.firstDayOfWeek = firstDayOfWeek;
@@ -66,10 +65,8 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
   private void buildWeekDays(LocalDate calendar) {
     LocalDate local = calendar;
     for (int i = 0; i < DEFAULT_DAYS_IN_WEEK; i++) {
-      WeekDayView weekDayView = new WeekDayView(getContext(), local.getDayOfWeek());
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-        weekDayView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-      }
+      WeekDayView weekDayView = new WeekDayView(getContext(), local.getDayOfWeek().getValue() + 1);
+      weekDayView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
       weekDayViews.add(weekDayView);
       addView(weekDayView);
       local = local.plusDays(1);
@@ -77,7 +74,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
   }
 
   protected void addDayView(Collection<DayView> dayViews, LocalDate temp) {
-    CalendarDay day = CalendarDay.from(temp);
+    CalendarDay day = CalendarDay.fromLocalDate(temp);
     DayView dayView = new DayView(getContext(), day);
     dayView.setOnClickListener(this);
     dayView.setOnLongClickListener(this);
@@ -87,10 +84,10 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
 
   protected LocalDate resetAndGetWorkingCalendar() {
     final TemporalField firstDayOfWeek = WeekFields.of(this.firstDayOfWeek, 1).dayOfWeek();
-    final LocalDate temp = getFirstViewDay().getDate().with(firstDayOfWeek, 1);
+    final LocalDate temp = getFirstViewDay().getLocalDate().with(firstDayOfWeek, 1);
     int dow = temp.getDayOfWeek().getValue();
     int delta = getFirstDayOfWeek().getValue() - dow;
-    //If the delta is positive, we want to remove a week
+    // If the delta is positive, we want to remove a week
     boolean removeRow = showOtherMonths(showOtherDates) ? delta >= 0 : delta > 0;
     if (removeRow) {
       delta -= DEFAULT_DAYS_IN_WEEK;
@@ -241,16 +238,16 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
     final int specHeightSize = MeasureSpec.getSize(heightMeasureSpec);
     final int specHeightMode = MeasureSpec.getMode(heightMeasureSpec);
 
-    //We expect to be somewhere inside a MaterialCalendarView, which should measure EXACTLY
+    // We expect to be somewhere inside a MaterialCalendarView, which should measure EXACTLY
     if (specHeightMode == MeasureSpec.UNSPECIFIED || specWidthMode == MeasureSpec.UNSPECIFIED) {
       throw new IllegalStateException("CalendarPagerView should never be left to decide it's size");
     }
 
-    //The spec width should be a correct multiple
+    // The spec width should be a correct multiple
     final int measureTileWidth = specWidthSize / DEFAULT_DAYS_IN_WEEK;
     final int measureTileHeight = specHeightSize / getRows();
 
-    //Just use the spec sizes
+    // Just use the spec sizes
     setMeasuredDimension(specWidthSize, specHeightSize);
 
     int count = getChildCount();
@@ -258,15 +255,11 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
     for (int i = 0; i < count; i++) {
       final View child = getChildAt(i);
 
-      int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
-              measureTileWidth,
-              MeasureSpec.EXACTLY
-      );
+      int childWidthMeasureSpec =
+              MeasureSpec.makeMeasureSpec(measureTileWidth, MeasureSpec.EXACTLY);
 
-      int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-              measureTileHeight,
-              MeasureSpec.EXACTLY
-      );
+      int childHeightMeasureSpec =
+              MeasureSpec.makeMeasureSpec(measureTileHeight, MeasureSpec.EXACTLY);
 
       child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
@@ -301,7 +294,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
 
       childLeft += width;
 
-      //We should warp every so many children
+      // We should warp every so many children
       if (i % DEFAULT_DAYS_IN_WEEK == (DEFAULT_DAYS_IN_WEEK - 1)) {
         childLeft = parentLeft;
         childTop += height;

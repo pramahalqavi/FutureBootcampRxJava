@@ -1,7 +1,6 @@
 package blibli.mobile.materialcalendarview.format;
 
-import org.threeten.bp.DayOfWeek;
-
+import blibli.mobile.materialcalendarview.CalendarUtils;
 import blibli.mobile.materialcalendarview.MaterialCalendarView;
 
 /**
@@ -15,10 +14,10 @@ public interface WeekDayFormatter {
    *        for {@linkplain java.util.Calendar#DAY_OF_WEEK}
    * @return a label for the day of week
    */
-  CharSequence format(DayOfWeek dayOfWeek);
+  CharSequence format(int dayOfWeek);
 
   /**
    * Default implementation used by {@linkplain MaterialCalendarView}
    */
-  WeekDayFormatter DEFAULT = new CalendarWeekDayFormatter();
+  WeekDayFormatter DEFAULT = new CalendarWeekDayFormatter(CalendarUtils.getInstance());
 }

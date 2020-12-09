@@ -36,6 +36,6 @@ public class DateFormatDayFormatter implements DayFormatter {
    * {@inheritDoc}
    */
   @Override @NonNull public String format(@NonNull final CalendarDay day) {
-    return dateFormat.format(day.getDate());
+    return dateFormat.format(day.getLocalDate());
   }
 }

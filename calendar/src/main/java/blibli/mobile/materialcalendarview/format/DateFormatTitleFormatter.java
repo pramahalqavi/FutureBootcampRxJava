@@ -31,6 +31,6 @@ public class DateFormatTitleFormatter implements TitleFormatter {
    * {@inheritDoc}
    */
   @Override public CharSequence format(final CalendarDay day) {
-    return dateFormat.format(day.getDate());
+    return dateFormat.format(day.getLocalDate());
   }
 }

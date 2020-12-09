@@ -271,11 +271,11 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
     }
 
     if (min == null) {
-      min = CalendarDay.from(today.getYear() - 200, today.getMonth(), today.getDay());
+      min = CalendarDay.from(today.getYear() - 200, today.getMonth() + 1, today.getDay());
     }
 
     if (max == null) {
-      max = CalendarDay.from(today.getYear() + 200, today.getMonth(), today.getDay());
+      max = CalendarDay.from(today.getYear() + 200, today.getMonth() + 1, today.getDay());
     }
 
     rangeIndex = createRangeIndex(min, max);
@@ -318,7 +318,8 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
     for (int i = 0; i < selectedDates.size(); i++) {
       CalendarDay date = selectedDates.get(i);
 
-      if ((minDate != null && minDate.isAfter(date)) || (maxDate != null && maxDate.isBefore(date))) {
+      if ((minDate != null && minDate.isAfter(date))
+              || (maxDate != null && maxDate.isBefore(date))) {
         selectedDates.remove(i);
         mcv.onDateUnselected(date);
         i -= 1;

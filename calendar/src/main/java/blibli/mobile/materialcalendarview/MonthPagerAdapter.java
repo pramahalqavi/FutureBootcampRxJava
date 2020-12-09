@@ -2,7 +2,6 @@ package blibli.mobile.materialcalendarview;
 
 
 import androidx.annotation.NonNull;
-import androidx.collection.SparseArrayCompat;
 
 import org.threeten.bp.Period;
 
@@ -45,7 +44,7 @@ class MonthPagerAdapter extends CalendarPagerAdapter<MonthView> {
     private final int count;
 
     public Monthly(@NonNull final CalendarDay min, @NonNull final CalendarDay max) {
-      this.min = CalendarDay.from(min.getYear(), min.getMonth(), 1);
+      this.min = CalendarDay.from(min.getYear(), min.getMonth() + 1, 1);
       this.count = indexOf(max) + 1;
     }
 
@@ -55,12 +54,12 @@ class MonthPagerAdapter extends CalendarPagerAdapter<MonthView> {
 
     @Override public int indexOf(final CalendarDay day) {
       return (int) Period
-              .between(min.getDate().withDayOfMonth(1), day.getDate().withDayOfMonth(1))
+              .between(min.getLocalDate().withDayOfMonth(1), day.getLocalDate().withDayOfMonth(1))
               .toTotalMonths();
     }
 
     @Override public CalendarDay getItem(final int position) {
-      return CalendarDay.from(min.getDate().plusMonths(position));
+      return CalendarDay.fromLocalDate(min.getLocalDate().plusMonths(position));
     }
   }
 }

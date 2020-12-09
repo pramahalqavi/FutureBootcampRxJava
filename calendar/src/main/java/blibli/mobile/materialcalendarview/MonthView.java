@@ -2,7 +2,6 @@ package blibli.mobile.materialcalendarview;
 
 import android.annotation.SuppressLint;
 
-import java.util.Calendar;
 import java.util.Collection;
 
 import androidx.annotation.NonNull;

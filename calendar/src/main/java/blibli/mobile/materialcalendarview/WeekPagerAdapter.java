@@ -67,12 +67,12 @@ public class WeekPagerAdapter extends CalendarPagerAdapter<WeekView> {
 
     @Override public int indexOf(final CalendarDay day) {
       final WeekFields weekFields = WeekFields.of(firstDayOfWeek, 1);
-      final LocalDate temp = day.getDate().with(weekFields.dayOfWeek(), 1L);
-      return (int) ChronoUnit.WEEKS.between(min.getDate(), temp);
+      final LocalDate temp = day.getLocalDate().with(weekFields.dayOfWeek(), 1L);
+      return (int) ChronoUnit.WEEKS.between(min.getLocalDate(), temp);
     }
 
     @Override public CalendarDay getItem(final int position) {
-      return CalendarDay.from(min.getDate().plusWeeks(position));
+      return CalendarDay.fromLocalDate(min.getLocalDate().plusWeeks(position));
     }
 
     /**
@@ -80,8 +80,8 @@ public class WeekPagerAdapter extends CalendarPagerAdapter<WeekView> {
      * day.
      */
     private CalendarDay getFirstDayOfWeek(@NonNull final CalendarDay day) {
-      final LocalDate temp = day.getDate().with(WeekFields.of(firstDayOfWeek, 1).dayOfWeek(), 1L);
-      return CalendarDay.from(temp);
+      final LocalDate temp = day.getLocalDate().with(WeekFields.of(firstDayOfWeek, 1).dayOfWeek(), 1L);
+      return CalendarDay.fromLocalDate(temp);
     }
   }
 }
