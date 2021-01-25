@@ -1,31 +1,23 @@
 package com.example.testapp.fragment
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.edit
-import com.example.testapp.CalendarActivity
 
 import com.example.testapp.R
+import com.example.testapp.activity.*
 
 
-import com.example.testapp.activity.Main2Activity
-import com.example.testapp.activity.ProductActivity
-import com.example.testapp.activity.WebviewActivity
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_first_menu.*
 
 class FirstMenuFragment : Fragment() {
@@ -53,6 +45,7 @@ class FirstMenuFragment : Fragment() {
         val btnInc = view.findViewById<Button>(R.id.btnCounter)
         val btnIncReset = view.findViewById<Button>(R.id.btnResetCounter)
         val btnCalendar = view.findViewById<Button>(R.id.btnCalendar)
+        val btnRx = view.findViewById<Button>(R.id.btnRx)
 
         btnStart.setOnClickListener {
             val intent = Intent(activity, Main2Activity::class.java)
@@ -72,6 +65,11 @@ class FirstMenuFragment : Fragment() {
         }
         btnCalendar.setOnClickListener {
             val intent = Intent(activity, CalendarActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnRx.setOnClickListener {
+            val intent = Intent(activity, RxActivity::class.java)
             startActivity(intent)
         }
 

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".activity.CalendarActivity"></activity>
+        <activity android:name=".activity.RxActivity" />
         <activity android:name=".activity.WebviewActivity" />
         <activity android:name=".activity.ProductActivity" />
         <activity
